@@ -59,14 +59,21 @@ class CatPaw{
     }
 }
 function catPawOnClick(event){
-    degreeRandom = Math.round((Math.random()*16)-8)
-    catPawsArray.push(new CatPaw({position:{x:event.clientX,y:event.clientY}},degreeRandom))
+    if(event.clientX>5&&
+        event.clientX<1227&&
+        event.clientY>5&&
+        event.clientY<781
+    ){
+        degreeRandom = Math.round((Math.random()*16)-8)
+        catPawsArray.push(new CatPaw({position:{x:event.clientX,y:event.clientY}},degreeRandom))
+    }
+
 }
 function restart(){
     catPawsArray = []
     catPawsTraceArray = []
 }
-function animate(event){
+function animate(){
     c.clearRect(0,0,canvas.width,canvas.height)
     
     catPawsArray.forEach((catPaw) =>{
