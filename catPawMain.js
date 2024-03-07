@@ -4,12 +4,13 @@ const c = canvas.getContext("2d");
 canvas.width = 1224;
 canvas.height = 776;
 
+
 const fps = 120;
 let degreeRandom;
 let theY=0;
 let catPawsArray = []
 let catPawsTraceArray = []
-
+let catPawScoreCount = 0
 const meowSound1 = new Audio('sounds/meow1.wav');
 const meowSound2 = new Audio('sounds/meow2.wav');
 const meowSound3 = new Audio('sounds/meow3.wav');
@@ -22,8 +23,8 @@ class CatPaw{
     constructor({position},degreeRandom){
         this.position = position
         this.image = new Image()
-        this.catPawCount = Math.round(Math.random()*1)
-        this.image.src = catPawImageArray[this.catPawCount]
+        this.catPawRandom = Math.round(Math.random()*1)
+        this.image.src = catPawImageArray[this.catPawRandom]
         console.log(this.image.src)
         this.imageTrace = new Image()
         this.imageTrace.src = "images/catPawTrace.png"
@@ -38,9 +39,11 @@ class CatPaw{
             if(this.position.y-20>this.position.y+1000+this.theY){
                 this.catPawMoveBack = true
                 //this.meowSound.play();
-                this.meowCount = Math.round(Math.random()*4)
-                console.log(this.meowCount)
-                meowSoundArray[this.meowCount].play();
+                this.meowRandom = Math.round(Math.random()*4)
+                console.log(this.meowRandom)
+                meowSoundArray[this.meowRandom].play();
+                catPawScoreCount++
+                document.getElementById('score').innerHTML = 'Cat Paws : '+catPawScoreCount
                 
             }
         }
@@ -72,6 +75,8 @@ function catPawOnClick(event){
 function restart(){
     catPawsArray = []
     catPawsTraceArray = []
+    catPawScoreCount = 0
+    document.getElementById('score').innerHTML = 'Cat Paws : '+catPawScoreCount
 }
 function animate(){
     c.clearRect(0,0,canvas.width,canvas.height)
@@ -86,3 +91,4 @@ function animate(){
 }
 window.addEventListener('click',catPawOnClick)
 animate();
+
