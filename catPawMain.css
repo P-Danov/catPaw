@@ -1,0 +1,14 @@
+body{
+    height:100%;
+    width:100%;
+    background-color: cyan;
+}
+
+#canvas{
+
+    z-index: 1;
+    border-color: brown;
+    background-color: white;
+    border: 1px solid rgb(255, 255, 255);
+
+}
