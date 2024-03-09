@@ -1,10 +1,13 @@
 const canvas = document.getElementById("canvas");
 const c = canvas.getContext("2d");
 
-canvas.width = 1224;
-canvas.height = 776;
+// canvas.width = 1224;
+// canvas.height = 776;
 
+canvas.width  = window.innerWidth*0.8;
+canvas.height = window.innerHeight*0.8;
 
+let globalData;
 const fps = 120;
 let degreeRandom;
 let theY=0;
@@ -25,7 +28,6 @@ class CatPaw{
         this.image = new Image()
         this.catPawRandom = Math.round(Math.random()*1)
         this.image.src = catPawImageArray[this.catPawRandom]
-        console.log(this.image.src)
         this.imageTrace = new Image()
         this.imageTrace.src = "images/catPawTrace.png"
         this.degreeRandom = degreeRandom
@@ -38,13 +40,11 @@ class CatPaw{
             this.theY-=8
             if(this.position.y-20>this.position.y+1000+this.theY){
                 this.catPawMoveBack = true
-                //this.meowSound.play();
                 this.meowRandom = Math.round(Math.random()*4)
-                console.log(this.meowRandom)
                 meowSoundArray[this.meowRandom].play();
                 catPawScoreCount++
                 document.getElementById('score').innerHTML = 'Cat Paws : '+catPawScoreCount
-                
+                console.log(globalData)
             }
         }
         else if(this.catPawMoveBack){
@@ -63,9 +63,9 @@ class CatPaw{
 }
 function catPawOnClick(event){
     if(event.clientX>5&&
-        event.clientX<1227&&
+        event.clientX<window.innerWidth*0.8&&
         event.clientY>5&&
-        event.clientY<781
+        event.clientY<window.innerHeight*0.8
     ){
         degreeRandom = Math.round((Math.random()*16)-8)
         catPawsArray.push(new CatPaw({position:{x:event.clientX,y:event.clientY}},degreeRandom))
@@ -90,5 +90,23 @@ function animate(){
       }, 1000 / fps)
 }
 window.addEventListener('click',catPawOnClick)
+window.onresize = function()
+{
+    canvas.width = window.innerWidth*0.8;
+    canvas.style.width = window.innerWidth*0.8;
+    canvas.height = window.innerHeight*0.8;
+    canvas.style.height = window.innerHeight*0.8;
+}
 animate();
+
+// const fs = require('fs');
+// fs.readFile('./score.txt','utf8',(err,data)=>{
+//     if(err){
+//         console.error(err)
+//         globalData = data
+//         return
+
+//     }
+//     globalData = data
+// })
 
