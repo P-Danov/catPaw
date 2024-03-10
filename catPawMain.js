@@ -63,9 +63,9 @@ class CatPaw{
 }
 function catPawOnClick(event){
     if(event.clientX>5&&
-        event.clientX<window.innerWidth*0.8&&
+        event.clientX<canvas.width&&
         event.clientY>5&&
-        event.clientY<window.innerHeight*0.8
+        event.clientY<canvas.height
     ){
         degreeRandom = Math.round((Math.random()*16)-8)
         catPawsArray.push(new CatPaw({position:{x:event.clientX,y:event.clientY}},degreeRandom))
@@ -92,10 +92,15 @@ function animate(){
 window.addEventListener('click',catPawOnClick)
 window.onresize = function()
 {
-    canvas.width = window.innerWidth*0.8;
-    canvas.style.width = window.innerWidth*0.8;
-    canvas.height = window.innerHeight*0.8;
-    canvas.style.height = window.innerHeight*0.8;
+    if(canvas.width<1224){
+        canvas.width = window.innerWidth*0.8;
+        canvas.style.width = window.innerWidth*0.8;
+    }
+    if(canvas.height<776){
+        canvas.height = window.innerHeight*0.8;
+        canvas.style.height = window.innerHeight*0.8;
+    }
+
 }
 animate();
 
