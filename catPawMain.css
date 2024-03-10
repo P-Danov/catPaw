@@ -2,8 +2,7 @@ body{
 
     background-color: cyan;
     user-select: none;
-    width: 1240px;
-    height: 800px;
+
 }
 
 #canvas{
@@ -11,6 +10,6 @@ body{
     z-index: 1;
     border-color: brown;
     background-color: white;
-    border: 1px solid rgb(255, 255, 255);
+    border: 1px solid rgb(54, 202, 20);
 
 }

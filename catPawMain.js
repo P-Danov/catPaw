@@ -1,11 +1,11 @@
 const canvas = document.getElementById("canvas");
 const c = canvas.getContext("2d");
 
-// canvas.width = 1224;
-// canvas.height = 776;
+ canvas.width = 1224;
+ canvas.height = 776;
 
-canvas.width  = window.innerWidth*0.8;
-canvas.height = window.innerHeight*0.8;
+// canvas.width  = window.innerWidth*0.8;
+// canvas.height = window.innerHeight*0.8;
 
 let globalData;
 const fps = 120;
