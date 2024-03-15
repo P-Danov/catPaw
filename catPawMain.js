@@ -1,16 +1,21 @@
 const canvas = document.getElementById("canvas");
 const c = canvas.getContext("2d");
 
- canvas.width = 1224;
- canvas.height = 776;
-
-// canvas.width  = window.innerWidth*0.8;
-// canvas.height = window.innerHeight*0.8;
+  //canvas.width = 1224;
+  //canvas.height = 776;
+  canvas.width  = window.innerWidth*0.8;
+  canvas.height = window.innerHeight*0.8;
+if(canvas.width>1224){
+    canvas.width = 1224;
+}
+if(canvas.height>776){
+    canvas.height = 776;
+}
 
 let globalData;
 const fps = 120;
 let degreeRandom;
-let theY=0;
+
 let catPawsArray = []
 let catPawsTraceArray = []
 let catPawScoreCount = 0
@@ -31,33 +36,41 @@ class CatPaw{
         this.imageTrace = new Image()
         this.imageTrace.src = "images/catPawTrace.png"
         this.degreeRandom = degreeRandom
-        this.theY=0
+        this.catPawCordinateY=0
         this.catPawMoveBack = false
-
+        this.catPawStartPosition = this.position.y+1000
+        this.catPawWidth = 60
+        this.catPawHeight = 1400
+        this.catPawTraceWidth = 45
+        this.catPawTraceHeight = 40
+        this.catPawOffsetX = 20
+        this.catPawOffsetY = 20
+        this.catPawTraceOffsetX = 15
+        
     }
     draw(){
         if(!this.catPawMoveBack){
-            this.theY-=8
-            if(this.position.y-20>this.position.y+1000+this.theY){
+            this.catPawCordinateY-=8
+            if(this.position.y-this.catPawOffsetY>this.catPawStartPosition+this.catPawCordinateY){
                 this.catPawMoveBack = true
                 this.meowRandom = Math.round(Math.random()*4)
                 meowSoundArray[this.meowRandom].play();
                 catPawScoreCount++
                 document.getElementById('score').innerHTML = 'Cat Paws : '+catPawScoreCount
-                console.log(globalData)
+                //console.log(globalData)
             }
         }
         else if(this.catPawMoveBack){
-            this.theY+=8
+            this.catPawCordinateY+=8
         }
         c.save();       
         c.translate(this.position.x,this.position.y)  
         c.rotate(360/this.degreeRandom)
         c.translate(-this.position.x,-this.position.y)
         if(this.catPawMoveBack){
-            c.drawImage(this.imageTrace,this.position.x-15,this.position.y,45,40,)
+            c.drawImage(this.imageTrace,this.position.x-this.catPawTraceOffsetX,this.position.y,this.catPawTraceWidth,this.catPawTraceHeight)
         }
-        c.drawImage(this.image,this.position.x-20,this.position.y+1000+this.theY,60,1400,)
+        c.drawImage(this.image,this.position.x-this.catPawOffsetX,this.catPawStartPosition+this.catPawCordinateY,this.catPawWidth,this.catPawHeight,)
         c.restore();
     }
 }
@@ -92,18 +105,20 @@ function animate(){
 window.addEventListener('click',catPawOnClick)
 window.onresize = function()
 {
-    if(canvas.width<1224){
+    if(window.innerWidth*0.8>0&&window.innerWidth*0.8<1224){
         canvas.width = window.innerWidth*0.8;
         canvas.style.width = window.innerWidth*0.8;
+        console.log(canvas.width)
     }
-    if(canvas.height<776){
+
+    if(window.innerHeight*0.8>0&&window.innerHeight*0.8<776){
         canvas.height = window.innerHeight*0.8;
         canvas.style.height = window.innerHeight*0.8;
     }
 
 }
 animate();
-
+console.log(canvas.width)
 // const fs = require('fs');
 // fs.readFile('./score.txt','utf8',(err,data)=>{
 //     if(err){
